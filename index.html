@@ -12,9 +12,36 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      display: flex;
       height: 100vh;
+      display: flex;
+      flex-direction: column;
       background-color: skyblue;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #0077b6;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .navbar button {
+      background: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Layout */
+    #content {
+      flex: 1;
+      display: flex;
     }
 
     #weather-info {
@@ -52,35 +79,43 @@
 </head>
 
 <body>
-  <div id="weather-info">
-    <div class="card">
-      <h2 id="city-name">Ha Noi</h2>
-      <p id="desc">---</p>
-      <p><i class="fa-solid fa-temperature-high" style="color: gray"></i>
-        <b>Temperature:</b><span id="temp">-- °C</span>
-      </p>
-      <p><i class="fa-solid fa-water" style="color: blue"></i>
-        <b>Humidity:</b> <span id="humidity">--%</span>
-      </p>
-      <p><i class="fa-solid fa-wind" style="color: green"></i>
-        <b>Wind:</b> <span id="wind">-- km/h</span>
-      </p>
-      <p><i class="fa-solid fa-eye" style="color: purple"></i>
-        <b>Visibility:</b> <span id="visibility">-- km</span>
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>5-Day Forecast</h3>
-      <div id="forecast-container"></div>
-    </div>
-    <div class="card">
-      <h3>Advice</h3>
-      <ul id="advice-list"></ul>
-    </div>
+  <!-- Navbar -->
+  <div class="navbar">
+    🌊 Flow
+    <button onclick="toggleUnit()">Switch °C / °F</button>
   </div>
 
-  <div id="map"></div>
+  <div id="content">
+    <div id="weather-info">
+      <div class="card">
+        <h2 id="city-name">Ha Noi</h2>
+        <p id="desc">---</p>
+        <p><i class="fa-solid fa-temperature-high" style="color: gray"></i>
+          <b>Temperature:</b> <span id="temp">-- °C</span>
+        </p>
+        <p><i class="fa-solid fa-water" style="color: blue"></i>
+          <b>Humidity:</b> <span id="humidity">--%</span>
+        </p>
+        <p><i class="fa-solid fa-wind" style="color: green"></i>
+          <b>Wind:</b> <span id="wind">-- km/h</span>
+        </p>
+        <p><i class="fa-solid fa-eye" style="color: purple"></i>
+          <b>Visibility:</b> <span id="visibility">-- km</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>5-Day Forecast</h3>
+        <div id="forecast-container"></div>
+      </div>
+      <div class="card">
+        <h3>Advice</h3>
+        <ul id="advice-list"></ul>
+      </div>
+    </div>
+
+    <div id="map"></div>
+  </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -93,7 +128,7 @@
     // Dữ liệu tĩnh cho demo
     const weatherData = {
       "Hanoi": {
-        current: { temp: "28°C", desc: "☀️ Clear Sky", humidity: "70%", wind: "8 km/h", visibility: "10 km" },
+        current: { temp: "28", desc: "☀️ Clear Sky", humidity: "70", wind: "8", visibility: "10" },
         forecast: [
           { day: "Today", icon: "☀️", min: 24, max: 30 },
           { day: "Tomorrow", icon: "⛅", min: 23, max: 29 },
@@ -103,7 +138,7 @@
         ]
       },
       "Ho Chi Minh": {
-        current: { temp: "32°C", desc: "⛅ Partly Cloudy", humidity: "65%", wind: "10 km/h", visibility: "12 km" },
+        current: { temp: "32", desc: "⛅ Partly Cloudy", humidity: "65", wind: "10", visibility: "12" },
         forecast: [
           { day: "Today", icon: "⛅", min: 26, max: 34 },
           { day: "Tomorrow", icon: "☀️", min: 25, max: 33 },
@@ -111,39 +146,21 @@
           { day: "Thursday", icon: "🌩️", min: 25, max: 34 },
           { day: "Friday", icon: "☀️", min: 26, max: 35 }
         ]
-      },
-      "Da Nang": {
-        current: { temp: "30°C", desc: "☀️ Sunny", humidity: "68%", wind: "12 km/h", visibility: "9 km" },
-        forecast: [
-          { day: "Today", icon: "☀️", min: 25, max: 31 },
-          { day: "Tomorrow", icon: "⛅", min: 24, max: 30 },
-          { day: "Wednesday", icon: "🌧️", min: 23, max: 29 },
-          { day: "Thursday", icon: "☀️", min: 24, max: 31 },
-          { day: "Friday", icon: "⛅", min: 25, max: 32 }
-        ]
-      },
-      "Can Tho": {
-        current: { temp: "29°C", desc: "🌧️ Light Rain", humidity: "75%", wind: "7 km/h", visibility: "8 km" },
-        forecast: [
-          { day: "Today", icon: "🌧️", min: 24, max: 30 },
-          { day: "Tomorrow", icon: "⛅", min: 23, max: 29 },
-          { day: "Wednesday", icon: "☀️", min: 22, max: 28 },
-          { day: "Thursday", icon: "🌩️", min: 23, max: 29 },
-          { day: "Friday", icon: "🌧️", min: 24, max: 30 }
-        ]
       }
     };
+
+    let currentUnit = "C"; // Default Celsius
 
     // Hàm update UI
     function updateWeather(city) {
       const data = weatherData[city];
 
       document.getElementById("city-name").innerText = city;
-      document.getElementById("temp").innerText = data.current.temp;
+      document.getElementById("temp").innerText = data.current.temp + " °" + currentUnit;
       document.getElementById("desc").innerText = data.current.desc;
-      document.getElementById("humidity").innerText = data.current.humidity;
-      document.getElementById("wind").innerText = data.current.wind;
-      document.getElementById("visibility").innerText = data.current.visibility;
+      document.getElementById("humidity").innerText = data.current.humidity + "%";
+      document.getElementById("wind").innerText = data.current.wind + " km/h";
+      document.getElementById("visibility").innerText = data.current.visibility + " km";
 
       // Advice
       const adviceListElem = document.getElementById("advice-list");
@@ -165,53 +182,62 @@
       const forecastContainer = document.getElementById("forecast-container");
       forecastContainer.innerHTML = "";
       data.forecast.forEach(f => {
+        const min = formatTemp(f.min);
+        const max = formatTemp(f.max);
         const div = document.createElement("div");
         div.className = "forecast-day";
-        div.innerHTML = `<span>${f.icon} ${f.day}</span><span>${f.min}° - ${f.max}°</span>`;
+        div.innerHTML = `<span>${f.icon} ${f.day}</span><span>${min} - ${max}</span>`;
         forecastContainer.appendChild(div);
       });
+    }
+
+    // Hàm đổi đơn vị
+    function toggleUnit() {
+      currentUnit = currentUnit === "C" ? "F" : "C";
+      updateWeather(document.getElementById("city-name").innerText);
+    }
+
+    function formatTemp(value) {
+      if (currentUnit === "C") {
+        return value + "°C";
+      } else {
+        return Math.round((value * 9 / 5) + 32) + "°F";
+      }
     }
 
     //Hàm tạo lời khuyên
     function generateAdvice(temp, desc, humidity, wind) {
       const adviceList = [];
-      // Temperature
-      if (temp < 0) adviceList.push("🥶 It's freezing! Wear multiple layers, a warm coat, hat, and gloves.");
-      else if (temp < 10) adviceList.push("🧥 It's cold. A jacket or sweater is recommended.");
-      else if (temp > 30) adviceList.push("🔥 It's very hot. Wear light clothing and apply sunscreen.");
-      else if (temp > 25) adviceList.push("😎 Nice weather! Light clothing will be comfortable.");
+      if (temp < 0) adviceList.push("🥶 It's freezing! Wear warm coat, hat, and gloves.");
+      else if (temp < 10) adviceList.push("🧥 It's cold. A jacket is recommended.");
+      else if (temp > 30) adviceList.push("🔥 It's very hot. Wear light clothing and sunscreen.");
+      else if (temp > 25) adviceList.push("😎 Nice weather! Light clothing is fine.");
 
-      // Condition
-      if (desc.includes("Rain") || desc.includes("🌧️")) adviceList.push("☔ Don't forget your umbrella and waterproof shoes.");
-      if (desc.includes("Snow") || desc.includes("❄️")) adviceList.push("⚠️ Slippery roads. Wear non-slip shoes and be careful.");
-      if (desc.includes("Clear") || desc.includes("☀️")) adviceList.push("🕶️ Great day! Sunglasses are recommended.");
+      if (desc.includes("Rain") || desc.includes("🌧️")) adviceList.push("☔ Don't forget your umbrella.");
+      if (desc.includes("Snow") || desc.includes("❄️")) adviceList.push("⚠️ Roads may be slippery.");
+      if (desc.includes("Clear") || desc.includes("☀️")) adviceList.push("🕶️ Sunglasses recommended.");
 
-      // Wind
       const windValue = parseInt(wind);
-      if (windValue > 25) adviceList.push("💨 Strong winds today. Secure loose items and be careful with umbrellas.");
-      else if (windValue > 15) adviceList.push("🍃 Moderate winds. A light jacket may help with wind chill.");
+      if (windValue > 25) adviceList.push("💨 Strong winds today, be careful.");
+      else if (windValue > 15) adviceList.push("🍃 Moderate winds. A jacket may help.");
 
-      // Humidity
       const humValue = parseInt(humidity);
-      if (humValue > 80) adviceList.push("💧 High humidity. It may feel warmer than the actual temperature.");
+      if (humValue > 80) adviceList.push("💧 High humidity, it may feel hotter.");
 
       return adviceList;
     }
 
-
-    // Tạo marker
+    // Marker các city
     const cities = {
       "Hanoi": [21.0285, 105.8542],
-      "Ho Chi Minh": [10.7769, 106.7009],
-      "Da Nang": [16.0471, 108.2068],
-      "Can Tho": [10.0452, 105.7469]
+      "Ho Chi Minh": [10.7769, 106.7009]
     };
 
     for (let city in cities) {
       L.marker(cities[city]).addTo(map).on("click", () => updateWeather(city));
     }
 
-    // Load mặc định Hà Nội
+    // Load mặc định
     updateWeather("Hanoi");
   </script>
 </body>
