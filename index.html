@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flow</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="icon" href="images/sea-waves.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <div id="navbar">
+    <div class="brand">
+      <img src="images/sea-waves.png" alt="Wave Logo">
+      <span>Flow</span>
+    </div>
+    <div id="date-display"></div>
+  </div>
+  <!-- Main Content -->
+  <div id="content">
+    <div id="weather-info">
+      <div class="card">
+        <h2 id="city-name">Ha Noi</h2>
+        <p id="desc">---</p>
+        <p>
+          <i class="fa-solid fa-temperature-high" style="color: gray"></i>
+          <b>Temperature:</b>
+          <span id="temp">-- °C</span>
+          <button id="unit-btn" onclick="toggleUnit()">°C/°F</button>
+        </p>
+        <p>
+          <i class="fa-solid fa-water" style="color: blue"></i>
+          <b>Humidity:</b> <span id="humidity">--%</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-wind" style="color: green"></i>
+          <b>Wind:</b> <span id="wind">-- km/h</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-eye" style="color: purple"></i>
+          <b>Visibility:</b> <span id="visibility">-- km</span>
+        </p>
+      </div>
+      <!-- Context Selection -->
+      <div class = "card">
+        <p>Select context</p>
+        <select id="context-select" onchange="changeContext()">
+          <option value="general">General</option>
+          <option value="travel">🚗 Travel</option>
+          <option value="work">💼 Work</option>
+          <option value="sport">⚽ Sports </option>
+          <option value="outdoor">🏕️ Outdoor</option>
+        </select>
+      </div>
+      <!-- Date Picker -->
+      <div class="card">
+        <p>Pick a day</p>
+        <input type="date" id="date-picker" />
+        <button onclick="fetchWeatherForDate()">Get Weather</button>
+      </div>
+      <div class="card">
+        <h3>5-Day Forecast</h3>
+        <div id="forecast-container"></div>
+      </div>
+      <!-- Advice Section -->
+      <div class="card">
+        <h3>Advice</h3>
+        <ul id="advice-list"></ul>
+      </div>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

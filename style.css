@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: skyblue;
+}
+
+#navbar {
+    background-color: #A2D4F4;
+    color: navy;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navbar .brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#navbar .brand img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+#navbar #date-display {
+    font-size: 1rem;
+}
+
+#content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+#weather-info {
+    width: 35%;
+    padding: 20px;
+    background-color: skyblue;
+    overflow-y: auto;
+}
+
+#map {
+    flex: 1;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.forecast-day {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.forecast-day:last-child {
+    border-bottom: none;
+}
+
+#unit-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+}
