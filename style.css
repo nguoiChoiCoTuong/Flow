@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: skyblue;
+}
+
+#navbar {
+    background-color: #A2D4F4;
+    color: navy;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navbar .brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#navbar .brand img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+#navbar #date-display {
+    font-size: 1rem;
+}
+
+#content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+#weather-info {
+    width: 25%;
+    padding: 15px;
+    background-color: rgba(135, 206, 235, 0.1); /* skyblue mờ 60% */
+    backdrop-filter: blur(6px);                 /* làm mờ nền phía sau */
+    border-radius: 10px;
+    overflow-y: auto;
+}
+#resizer {
+  width: 5px;
+  cursor: col-resize;
+  background-color: rgba(0,0,0,0.2);
+}
+#map {
+    flex : 1;
+}
+
+.custom-label {
+      background-color: white;
+      border: 1px solid black;
+      padding: 2px 5px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+.card {
+    background: rgba(255, 255, 255, 0.4); /* trắng mờ 70% */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(4px); /* hiệu ứng kính mờ */
+}
+
+.forecast-day {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.forecast-day:last-child {
+    border-bottom: none;
+}
+
+#unit-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+}
+.custom-label {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: black !important;
+  font-size: 1rem;
+  padding: 2px;
+}
