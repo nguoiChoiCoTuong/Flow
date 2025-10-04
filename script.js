@@ -194,7 +194,6 @@ async function updateWeather(city) {
 
     // Cập nhật UI
     document.getElementById("city-name").innerText = city;
-    document.getElementById("download-csv-btn").style.display = "inline-block";
     document.getElementById("desc").innerText = "Data from Open-Meteo & NASA";
     document.getElementById("temp").innerText = avgTemp !== null ? formatTemp(avgTemp) : "--";
     document.getElementById("humidity").innerText = humidityToday !== null ? humidityToday + "%" : "--";
@@ -622,3 +621,4 @@ document.getElementById("download-csv-btn").addEventListener("click", function (
   link.click();
   document.body.removeChild(link);
 });
+
