@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flow</title>
+  <!-- Leaflet CSS (updated to 1.7.1 for compatibility with map.js) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <!-- Leaflet-GeoSearch CSS for search bar -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.8.0/dist/geosearch.css" />
+  <link rel="icon" href="images/sea-waves.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+  <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <div id="navbar">
+    <div class="brand">
+      <img src="images/sea-waves.png" alt="Wave Logo">
+      <span>Flow</span>
+    </div>
+    <div id="date-display"></div>
+  </div>
+  <!-- Main Content -->
+  <div id="content">
+    <div id="weather-info">
+      <div class="card">
+        <h2 id="city-name">Ha Noi</h2>
+        <p id="desc">---</p>
+        <p>
+          <i class="fa-solid fa-temperature-high" style="color: gray"></i>
+          <b>Temperature:</b>
+          <span id="temp">-- °C</span>
+          <button id="unit-btn" onclick="toggleUnit()">°C/°F</button>
+        </p>
+        <p>
+          <i class="fa-solid fa-water" style="color: blue"></i>
+          <b>Humidity:</b> <span id="humidity">--%</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-wind" style="color: green"></i>
+          <b>Wind:</b> <span id="wind">-- km/h</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-eye" style="color: purple"></i>
+          <b>Visibility:</b> <span id="visibility">-- km</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-cloud-rain" style="color: dodgerblue"></i>
+          <b>Precipitation:</b>
+          <span id="precipitation">-- mm</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-umbrella" style="color: teal"></i>
+          <b>Rain Probability:</b> <span id="rainProb">--%</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-gauge-high" style="color: brown"></i>
+          <b>Pressure:</b> <span id="pressure">-- kPa</span>
+        </p>
+      </div>
+      <div class="card">
+        <h3>Advice</h3>
+        <ul id="advice-list"></ul>
+      </div>
+      <!-- Context Selection -->
+      <div class="card">
+        <p>Select context</p>
+        <select id="context-select" onchange="changeContext()">
+          <option value="general">General</option>
+          <option value="travel">🚗 Travel</option>
+          <option value="work">💼 Work</option>
+          <option value="sport">⚽ Sports</option>
+          <option value="outdoor">🏕️ Outdoor</option>
+        </select>
+      </div>
+      <!-- Date Picker -->
+      <div class="card">
+        <p>Pick a day</p>
+        <input type="date" id="date-picker" />
+        <button onclick="fetchWeatherForDate()">Get Weather</button>
+      </div>
+      <div class="card">
+        <h3>7-Day Forecast</h3>
+        <div id="forecast-container"></div>
+      </div>
+      <div class="card">
+        <h3>Download file CSV</h3>
+        <button id="download-csv-btn">Download</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Rain Probability 7-Day</h3>
+      <canvas id="rainChart"></canvas>
+    </div>
+    <div id="resizer"></div>
+    <div id="map"></div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Leaflet-GeoSearch JS -->
+  <script src="https://unpkg.com/leaflet-geosearch@3.8.0/dist/geosearch.umd.js"></script>
+
+  <!-- Leaflet Draw plugin -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+  <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+
+  <!-- App scripts -->
+  <script src="map.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
