@@ -609,7 +609,7 @@ const forecastData = await fetchForecastData(currentLat, currentLon);
 
   const normalized = normalizeForecast(forecastData.meteoData);
 
-  let csvContent = "Date,Avg Temp (°C),Avg Humidity (%),Avg Wind (km/h),Max Rain Probability (%),Avg Cloud (%),Avg Visibility (km),Total Precipitation (mm), Pressure (kPa)\n";
+  let csvContent = "Date,Avg Temp (°C),Avg Humidity (%),Avg Wind (km/h),Max Rain Probability (%),Avg Cloud (%),Avg Visibility (km),Total Precipitation (mm)\n";
 
   Object.keys(normalized).slice(0, 7).forEach(day => {
     const d = normalized[day];
@@ -627,4 +627,5 @@ const forecastData = await fetchForecastData(currentLat, currentLon);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+
 });
