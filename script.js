@@ -272,7 +272,7 @@ async function updateWeatherFromCoords(lat, lon, cityName) {
     const cityEl = document.getElementById("city-name");
     const descEl = document.getElementById("desc");
     if (cityEl) cityEl.innerText = cityName;
-    if (descEl) descEl.innerText = "Data from coordinates";
+    if (descEl) descEl.innerText = "Data from NASA & OpenMeteo";
 
     // 3) Safe getters cho NASA (tránh Object.values(...) khi object rỗng)
     const safeFirstValue = obj => {
@@ -629,3 +629,4 @@ const forecastData = await fetchForecastData(currentLat, currentLon);
   document.body.removeChild(link);
 
 });
+
