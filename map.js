@@ -143,7 +143,7 @@ map.on(L.Draw.Event.CREATED, function (event) {
     updateWeatherFromCoords(lat, lng, "Selected Area (avg)");
   } else if (layer instanceof L.Circle) {
     const { lat, lng } = layer.getLatLng();
-    updateWeatherFromCoords(lat, lng, "Circle Center");
+    updateWeatherFromCoords(lat, lng, "Selected Area (avg)");
   } else if (layer instanceof L.CircleMarker) {
     const { lat, lng } = layer.getLatLng();
     updateWeatherFromCoords(lat, lng, `(${lat.toFixed(2)}, ${lng.toFixed(2)})`);
@@ -162,4 +162,5 @@ map.on(L.Draw.Event.DELETED, function (event) {
   document.getElementById("temp").innerText = "-- °C";
   document.getElementById("humidity").innerText = "--%";
   document.getElementById("advice-list").innerHTML = "";
+
 });
