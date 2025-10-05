@@ -757,7 +757,7 @@ document.getElementById("download-csv-btn").addEventListener("click", async func
 
   Object.keys(normalized).slice(0, 7).forEach(day => {
     const d = normalized[day] || {};
-    csvContent += `${day},${Math.round(d.avgTemp) || "--"},${Math.round(d.avgHumidity) || "--"},${Math.round(d.avgWind) || "--"},${Math.round(d.maxRainProb) || "--"},${Math.round(d.avgCloud) || "--"},${d.avgVisibility?.toFixed(2) || "--"},${d.totalPrecipitation || "--"},${d.maxUV?.toFixed(1) || "--"}\n`;
+    csvContent += `${day},${Math.round(d.avgTemp) || "0"},${Math.round(d.avgHumidity) || "0"},${Math.round(d.avgWind) || "0"},${Math.round(d.maxRainProb) || "0"},${Math.round(d.avgCloud) || "0"},${d.avgVisibility?.toFixed(2) || "0"},${d.totalPrecipitation || "0"},${d.maxUV?.toFixed(1) || "0"}\n`;
   });
 
   const BOM = "\uFEFF";
@@ -788,4 +788,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
 });
