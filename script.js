@@ -611,6 +611,7 @@ function changeContext() {
 
 function toNumber(val) {
   if (val === "--" || val === undefined || val === null) return null;
+  if(Number(val)<=-999) return "--";
   return Number(val);
 }
 
@@ -790,3 +791,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
