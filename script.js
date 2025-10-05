@@ -720,7 +720,7 @@ for (let city in cities) {
 
 document.getElementById("date-picker").addEventListener("change", fetchWeatherForDate);
 
-updateWeather("Hanoi");
+updateWeather("Hà Nội");
 updateDate();
 
 const resizer = document.getElementById("resizer");
@@ -788,4 +788,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
 });
